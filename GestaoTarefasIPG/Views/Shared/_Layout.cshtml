@@ -1,48 +1,157 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
+
 <head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Gestão de tarefas do IPG</title>
+
+    <!-- Page level plugin CSS-->
+    <link href="~/datatables/dataTables.bootstrap4.css" rel="stylesheet">
+
+    <!-- Custom styles for this template-->
+    <link href="~/css/sb-admin.css" rel="stylesheet">
+
+</head>
+
+@*Old Head*@
+
+@*<head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - GestaoTarefasIPG</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
-</head>
-<body>
+</head>*@
+
+<body id="page-top">
+
+    <style>
+        nav{
+            background-color:#db1033;
+        }
+        .teste{
+            color:white;
+        }
+        .teste:hover{
+            color:white;
+            text-decoration:none;
+        }
+    </style>
+
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">GestaoTarefasIPG</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                    </ul>
+
+        <nav class="navbar navbar-expan static-top">
+
+            <img src="~/Logo.png" width="25" height="40" />
+
+            &nbsp;
+
+            <a class="teste" asp-area="" asp-controller="Home" asp-action="Index">Gestão IPG</a>
+
+            <!-- Navbar Search -->
+            <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
+                    <div class="input-group-append">
+                        <button class="btn btn-primary" type="button">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
+                </div>
+            </form>
+
+        </nav>
+
+        @*Old nav*@
+
+        @*<nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+                <div class="container">
+                    <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">GestaoTarefasIPG</a>--
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                            aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+                        <ul class="navbar-nav flex-grow-1">
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>*@
+    </header>
+
+    <div id="wrapper">
+
+        <!-- Sidebar -->
+        <ul class="sidebar navbar-nav" style="background-color:gray;color:white;">
+
+            <li class="nav-item">
+
+                <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Privacy">
+
+                    <i class="fas fa-fw fa-table"></i>
+
+                    <span>Privacy</span>
+
+                </a>
+
+            </li>
+
+        </ul>
+
+        <div id="content-wrapper">
+
+            <div class="container-fluid">
+
+                @RenderBody()
+
+            </div>
+
+        </div>
+
+        <!-- Sticky Footer -->
+        <footer class="sticky-footer">
+            <div class="container my-auto">
+                <div class="copyright text-center my-auto">
+                    <span>Copyright © Gestão IPG 2019</span>
                 </div>
             </div>
-        </nav>
-    </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
+        </footer>
+
     </div>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2019 - GestaoTarefasIPG - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-        </div>
-    </footer>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
-    @RenderSection("Scripts", required: false)
+    @*Old footer*@
+
+    @*<footer class="border-top footer text-muted">
+            <div class="container">
+                &copy; 2019 - GestaoTarefasIPG - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            </div>
+    </footer>*@
+
+    <!-- Bootstrap core JavaScript-->
+    <script src="~/jquery/jquery.min.js"></script>
+    <script src="~/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script src="~/jquery-easing/jquery.easing.min.js"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script src="~/js/sb-admin.min.js"></script>
+
+    <!-- Demo scripts for this page-->
+    <script src="~/js/demo/datatables-demo.js"></script>
+    <script src="~/js/demo/chart-area-demo.js"></script>
+
 </body>
-</html>
+        </html>
