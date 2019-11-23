@@ -57,14 +57,15 @@
             display: table-row;
             height: 0;
         }
-        .footerLink {
-        color: #db1033;
-    }
 
-        .footerLink:hover {
-            color: grey;
-            text-decoration: none;
+        .footerLink {
+            color: #db1033;
         }
+
+            .footerLink:hover {
+                color: grey;
+                text-decoration: none;
+            }
     </style>
 
     <header>
@@ -133,5 +134,7 @@
     <!-- Demo scripts for this page-->
     <script src="~/js/demo/datatables-demo.js"></script>
     <script src="~/js/demo/chart-area-demo.js"></script>
+
+    @RenderSection("Scripts", required: false)
 </body>
 </html>

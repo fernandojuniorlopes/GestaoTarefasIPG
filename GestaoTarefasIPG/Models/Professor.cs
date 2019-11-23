@@ -15,7 +15,7 @@ namespace GestaoTarefasIPG.Models
         public string Nome { get; set; }
 
         [Required]
-        [RegularExpression("/9[1236][0-9]{7}|2[1-9]{1,2}[0-9]{7}/")]
+        [RegularExpression("9[1236][0-9]{7}|2[1-9]{2}[0-9]{6}")]
         public string NumeroTelemovel { get; set; }
 
         [Required]
