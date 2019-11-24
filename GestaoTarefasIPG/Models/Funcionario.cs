@@ -9,16 +9,12 @@ namespace GestaoTarefasIPG.Models {
         [Required]
         public int FuncionarioId { get; set; }
         [Required]
-        public string nome { get; set; }
+        public string Nome { get; set; }
         [Required]
         [RegularExpression("/9[1236][0-9]{7}|2[1-9]{1,2}[0-9]{7}/")]
-        public string numeroTelemovel { get; set; }
+        public string NumeroTelemovel { get; set; }
         [Required]
         [EmailAddress]
         public string Email { get; set; }
-        [Required]
-        public string setor { get; set; }
-        [Required]
-        public string numeroFuncionario { get; set; }
     }
 }
