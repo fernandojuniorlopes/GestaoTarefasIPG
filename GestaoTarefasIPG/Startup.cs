@@ -29,6 +29,9 @@ namespace GestaoTarefasIPG
 
             services.AddDbContext<ProfessorDbContext>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("ProfessorDbContext")));
+
+            services.AddDbContext<FuncionarioDbContext>(options =>
+                    options.UseSqlServer(Configuration.GetConnectionString("FuncionarioDbContext")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
