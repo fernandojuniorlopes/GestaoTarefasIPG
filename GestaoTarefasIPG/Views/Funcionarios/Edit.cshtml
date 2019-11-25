@@ -3,10 +3,36 @@
 @{
     ViewData["Title"] = "Edit";
 }
+<style>
+    .headColumns{
+        color: #db1033;
+    }
+    .backLink{
+        color:#db1033;
+    }
+    .backLink:hover{
+        text-decoration: underline;
+        color:#db1033;
+    }
+    .button{
+        color:white;
+        background-color:#db1033;
+        border:2px solid #db1033;
+        border-radius: 8px;
+        padding: 3px 10px;
+    }
 
-<h1>Edit</h1>
+    .button:hover{
+        color:#db1033;
+        background-color:white;
+        border:2px solid #db1033;
+        border-radius: 8px;
+        padding: 3px 10px;
+    }
+</style>
+<h1 class="headColumns">Edit</h1>
 
-<h4>Funcionario</h4>
+<h4 class="headColumns">Funcionario</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -19,7 +45,7 @@
                 <span asp-validation-for="Nome" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="NumeroTelemovel" class="control-label"></label>
+                <label asp-for="NumeroTelemovel" class="control-label">Nº telemóvel</label>
                 <input asp-for="NumeroTelemovel" class="form-control" />
                 <span asp-validation-for="NumeroTelemovel" class="text-danger"></span>
             </div>
@@ -29,14 +55,14 @@
                 <span asp-validation-for="Email" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+                <input type="submit" value="Save" class="button" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index" class="backLink">Back to List</a>
 </div>
 
 @section Scripts {

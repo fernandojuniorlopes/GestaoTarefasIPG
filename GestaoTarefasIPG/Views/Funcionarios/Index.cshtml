@@ -3,22 +3,56 @@
 @{
     ViewData["Title"] = "Index";
 }
+<style>
+    .thead {
+        background-color: white;
+    }
+    .headColumns{
+        color: #db1033;
+    }
 
-<h1>Index</h1>
+    .button{
+        color:white;
+        background-color:#db1033;
+        border:2px solid #db1033;
+        border-radius: 8px;
+        padding: 3px 10px;
+    }
+
+    .button:hover{
+        color:#db1033;
+        background-color:white;
+        border:2px solid #db1033;
+        border-radius: 8px;
+        padding: 3px 10px;
+    }
+    .title{
+        color:#db1033;
+    }
+    .createLink{
+        color:#db1033;
+    }
+    .createLink:hover{
+        text-decoration: underline;
+        color:#db1033;
+    }
+
+</style>
+<h1 class="title">Employees</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a class="createLink" asp-action="Create">Create New</a>
 </p>
-<table class="table">
-    <thead>
+<table class="table table-striped" align="center">
+    <thead class="thead">
         <tr>
-            <th>
+            <th class="headColumns">
                 @Html.DisplayNameFor(model => model.Nome)
             </th>
-            <th>
+            <th class="headColumns">
                 @Html.DisplayNameFor(model => model.NumeroTelemovel)
             </th>
-            <th>
+            <th class="headColumns">
                 @Html.DisplayNameFor(model => model.Email)
             </th>
             <th></th>
@@ -34,12 +68,12 @@
                 @Html.DisplayFor(modelItem => item.NumeroTelemovel)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Email)
+                <p>@Html.DisplayFor(modelItem => item.Email)</p>
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.FuncionarioId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.FuncionarioId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.FuncionarioId">Delete</a>
+                <a class="button" asp-action="Edit" asp-route-id="@item.FuncionarioId">Edit</a>
+                <a class="button" asp-action="Details" asp-route-id="@item.FuncionarioId">Details</a>
+                <a class="button" asp-action="Delete" asp-route-id="@item.FuncionarioId">Delete</a>
             </td>
         </tr>
 }
