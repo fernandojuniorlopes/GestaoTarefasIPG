@@ -10,6 +10,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
 using GestaoTarefasIPG.Models;
+using Microsoft.Extensions.Logging;
 
 namespace GestaoTarefasIPG
 {
@@ -35,8 +36,17 @@ namespace GestaoTarefasIPG
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory loggerFactory)
         {
+            if (env.IsDevelopment())
+            {
+                using (var serviceScope = app.ApplicationServices.CreateScope())
+                {
+                    var db = serviceScope.ServiceProvider.GetService<ProfessorDbContext>();
+                    SeedData.Populate(db);
+                }
+            }
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
