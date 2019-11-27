@@ -16,28 +16,36 @@ a {
         color: grey;
     }
 
+thead {
+    background-color: #db1033;
+    color: white;
+}
+
+tbody {
+    background-color: lightgray;
+}
 .btn-primary {
     color: white;
     background-color: #db1033;
-    border-color: #1861ac;
+    border-color: #db1033;
 }
 
     .btn-primary:hover {
-        color: white;
-        background-color: grey;
-        border-color: #1861ac;
+        color: #db1033;
+        background-color: white;
+        border-color: #db1033;
     }
 
 .btn-secondary {
-    color: white;
-    background-color: grey;
-    border-color: #1861ac;
+    color: grey;
+    background-color: lightgray;
+    border-color: lightgray;
 }
 
     .btn-secondary:hover {
-        color: white;
-        background-color: #db1033;
-        border-color: #1861ac;
+        color: grey;
+        background-color: white;
+        border-color: grey;
     }
 
 .btn-outline-info {
