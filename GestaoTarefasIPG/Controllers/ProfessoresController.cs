@@ -13,15 +13,42 @@ namespace GestaoTarefasIPG.Controllers
     {
         private readonly ProfessorDbContext _context;
 
+        public int TamanhoPagina = 10;
+
         public ProfessoresController(ProfessorDbContext context)
         {
             _context = context;
         }
 
+        ////public ViewResult Index(int page = 1) => View(
+        //    _context.Professor
+        //    .OrderBy(p => p.Nome)
+        //    .Skip((page - 1) * TamanhoPagina)
+        //    .Take(TamanhoPagina)
+        //    );
+
         // GET: Professores
-        public async Task<IActionResult> Index()
+        public IActionResult Index(int page = 1)
         {
-            return View(await _context.Professor.ToListAsync());
+            decimal nProfessores = _context.Professor.Count();
+            int NUMERO_PAGINAS_ANTES_DEPOIS = ((int)nProfessores / TamanhoPagina);
+
+            if (nProfessores % TamanhoPagina == 0)
+            {
+                NUMERO_PAGINAS_ANTES_DEPOIS -= 1;
+            }
+
+            ProfessoresViewModel vm = new ProfessoresViewModel
+            {
+                Professores = _context.Professor.OrderBy(p => p.Nome).Skip((page - 1) * TamanhoPagina).Take(TamanhoPagina),
+                PaginaAtual = page,
+                PrimeiraPagina = Math.Max(1, page - NUMERO_PAGINAS_ANTES_DEPOIS),
+                TotalPaginas = (int)Math.Ceiling(nProfessores / TamanhoPagina)
+            };
+
+            vm.UltimaPagina = Math.Min(vm.TotalPaginas, page + NUMERO_PAGINAS_ANTES_DEPOIS);
+
+            return View(vm);
         }
 
         // GET: Professores/Details/5

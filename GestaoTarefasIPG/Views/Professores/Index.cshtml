@@ -1,19 +1,8 @@
-﻿@model IEnumerable<GestaoTarefasIPG.Models.Professor>
+﻿@model ProfessoresViewModel
 
 @{
     ViewData["Title"] = "Index";
 }
-
-<style>
-
-    thead {
-        background-color: #db1033;
-        color: white;
-    }
-    tbody{
-        background-color: lightgray;
-    }
-</style>
 
 <h1>Lista de professores</h1>
 
@@ -24,42 +13,54 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Nome)
+                Nome:
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.NumeroTelemovel)
+                Numero de telemóvel:
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Email)
+                Email:
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Gabinete)
+                Gabinete:
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model)
+        @foreach (var p in Model.Professores)
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Nome)
+                    @p.Nome
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.NumeroTelemovel)
+                    @p.NumeroTelemovel
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Email)
+                    @p.Email
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Gabinete)
+                    @p.Gabinete
                 </td>
                 <td>
-                    <a asp-action="Edit" asp-route-id="@item.ProfessorId">Editar</a> |
-                    <a asp-action="Details" asp-route-id="@item.ProfessorId">Detalhes</a> |
-                    <a asp-action="Delete" asp-route-id="@item.ProfessorId">Remover</a>
+                    <a asp-action="Edit" asp-route-id="@p.ProfessorId">Editar</a> |
+                    <a asp-action="Details" asp-route-id="@p.ProfessorId">Detalhes</a> |
+                    <a asp-action="Delete" asp-route-id="@p.ProfessorId">Remover</a>
                 </td>
             </tr>
         }
     </tbody>
 </table>
+
+@for (int i = 1; i <= Model.TotalPaginas; i++)
+{
+    @if (i == Model.PaginaAtual)
+    {
+        <a href="#" class="btn btn-outline-primary">@i</a>
+    }
+    else
+    {
+        <a asp-action="Index" asp-route-page="@i" class="btn btn-outline-info">@i</a>
+    }
+}
