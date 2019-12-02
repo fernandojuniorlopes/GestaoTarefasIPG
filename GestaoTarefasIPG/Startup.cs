@@ -43,7 +43,9 @@ namespace GestaoTarefasIPG
                 using (var serviceScope = app.ApplicationServices.CreateScope())
                 {
                     var db = serviceScope.ServiceProvider.GetService<ProfessorDbContext>();
+                    var dbF = serviceScope.ServiceProvider.GetService<FuncionarioDbContext>();
                     SeedData.Populate(db);
+                    SeedData.PopulateFuncionario(dbF);
                 }
             }
 
