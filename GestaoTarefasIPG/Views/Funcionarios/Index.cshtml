@@ -1,4 +1,4 @@
-﻿@model IEnumerable<GestaoTarefasIPG.Models.Funcionario>
+﻿@model FuncionariosViewModel
 
 @{
     ViewData["Title"] = "Index";
@@ -13,35 +13,47 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Nome)
+                Nome:
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.NumeroTelemovel)
+                Numero de telemóvel:
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Email)
+                Email:
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Nome)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.NumeroTelemovel)
-            </td>
-            <td>
-                <p>@Html.DisplayFor(modelItem => item.Email)</p>
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.FuncionarioId">Editar</a>|
-                <a asp-action="Details" asp-route-id="@item.FuncionarioId">Detalhes</a>|
-                <a asp-action="Delete" asp-route-id="@item.FuncionarioId">Remover</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model.Funcionarios) {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Nome)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NumeroTelemovel)
+                </td>
+                <td>
+                    <p>@Html.DisplayFor(modelItem => item.Email)</p>
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.FuncionarioId">Editar</a>|
+                    <a asp-action="Details" asp-route-id="@item.FuncionarioId">Detalhes</a>|
+                    <a asp-action="Delete" asp-route-id="@item.FuncionarioId">Remover</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
+
+@for (int i = 1; i <= Model.TotalPaginas; i++) {
+
+    @if (i == Model.PaginaAtual) {
+
+        <a href="#" class="btn btn-outline-primary">@i</a>
+
+    } else {
+
+        <a asp-action="Index" asp-route-page="@i" class="btn btn-outline-info">@i</a>
+    }
+}

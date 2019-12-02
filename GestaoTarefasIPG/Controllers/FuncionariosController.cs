@@ -13,15 +13,33 @@ namespace GestaoTarefasIPG.Controllers
     {
         private readonly FuncionarioDbContext _context;
 
+        public int TamanhoPagina = 10;
+
         public FuncionariosController(FuncionarioDbContext context)
         {
             _context = context;
         }
 
         // GET: Funcionarios
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int page = 1)
         {
-            return View(await _context.Funcionario.ToListAsync());
+            decimal nFuncionarios = _context.Funcionario.Count();
+            int NUMERO_PAGINAS_ANTES_DEPOIS = ((int)nFuncionarios / TamanhoPagina);
+
+            if (nFuncionarios % TamanhoPagina == 0) {
+                NUMERO_PAGINAS_ANTES_DEPOIS -= 1;
+            }
+
+            FuncionariosViewModel vm = new FuncionariosViewModel {
+                Funcionarios = _context.Funcionario.OrderBy(p => p.Nome).Skip((page - 1) * TamanhoPagina).Take(TamanhoPagina),
+                PaginaAtual = page,
+                PrimeiraPagina = Math.Max(1, page - NUMERO_PAGINAS_ANTES_DEPOIS),
+                TotalPaginas = (int)Math.Ceiling(nFuncionarios / TamanhoPagina)
+            };
+
+            vm.UltimaPagina = Math.Min(vm.TotalPaginas, page + NUMERO_PAGINAS_ANTES_DEPOIS);
+
+            return View(vm);
         }
 
         // GET: Funcionarios/Details/5
