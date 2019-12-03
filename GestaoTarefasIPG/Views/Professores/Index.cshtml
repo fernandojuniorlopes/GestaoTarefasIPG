@@ -14,12 +14,12 @@
 {
     <p>
         Nome: <input type="text" name="searchString" value="@Model.StringProcura" placeholder="Procurar por nome" />
-        <a type="submit" class="btn btn-outline-primary" asp-route-page="1" >Procurar</a>
+        <button type="submit" class="btn btn-light" asp-action="Index" asp-route-page="1" asp-route-searchString="@Model.StringProcura" >Procurar</button>
         <a asp-action="Index" class="btn btn-info">Lista inteira</a>
     </p>
 }
 
-<table class="table">
+<table class="table table-striped">
     <thead>
         <tr>
             <th>
