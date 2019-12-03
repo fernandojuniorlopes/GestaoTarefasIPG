@@ -9,14 +9,15 @@ namespace GestaoTarefasIPG.Models
     public class Professor
     {
         [Required]
+        [MaxLength(60, ErrorMessage = "O nome tem de ter menos de 60 carateres")]
         public int ProfessorId { get; set; }
 
         [Required]
         public string Nome { get; set; }
 
         [Required]
-        [RegularExpression("9[1236][0-9]{7}|2[1-9]{2}[0-9]{6}")]
-        [Display(Name = "Numero de telemóvel")]
+        [RegularExpression("(9[1236][0-9]{7})|(2[1-9][0-9]{7})")]
+        [Display(Name = "Contacto telefónico")]
         public string NumeroTelemovel { get; set; }
 
         [Required]
@@ -24,6 +25,9 @@ namespace GestaoTarefasIPG.Models
         public string Email { get; set; }
 
         [Required]
-        public int Gabinete { get; set; }
+        public string Gabinete { get; set; }
+
+        [Required]
+        public string FuncionarioId { get; set; }
     }
 }
