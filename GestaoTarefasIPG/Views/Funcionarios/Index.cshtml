@@ -9,39 +9,47 @@
 <p>
     <a asp-action="Create">Adicionar novo funcionário</a>
 </p>
-<table class="table" align="center">
+<table class="table table-striped" align="center">
     <thead>
         <tr>
             <th>
                 Nome:
             </th>
             <th>
-                Numero de telemóvel:
+                Contacto:
             </th>
             <th>
                 Email:
             </th>
-            <th></th>
+            <th>
+                Número de funcionário:
+            </th>
+            <th>
+                Ações:
+            </th>
         </tr>
     </thead>
     <tbody>
         @foreach (var item in Model.Funcionarios) {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Nome)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.NumeroTelemovel)
-                </td>
-                <td>
-                    <p>@Html.DisplayFor(modelItem => item.Email)</p>
-                </td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@item.FuncionarioId">Editar</a>|
-                    <a asp-action="Details" asp-route-id="@item.FuncionarioId">Detalhes</a>|
-                    <a asp-action="Delete" asp-route-id="@item.FuncionarioId">Remover</a>
-                </td>
-            </tr>
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nome)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Contacto)
+            </td>
+            <td>
+                <p>@Html.DisplayFor(modelItem => item.Email)</p>
+            </td>
+            <td>
+                <p>@Html.DisplayFor(modelItem => item.NumeroFuncionario)</p>
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.FuncionarioId" class="btn btn-warning">Editar</a>
+                <a asp-action="Details" asp-route-id="@item.FuncionarioId" class="btn btn-info">Detalhes</a>
+                <a asp-action="Delete" asp-route-id="@item.FuncionarioId" class="btn btn-danger">Remover</a>
+            </td>
+        </tr>
         }
     </tbody>
 </table>

@@ -11,11 +11,12 @@ namespace GestaoTarefasIPG.Models {
         [Required]
         public string Nome { get; set; }
         [Required]
-        [RegularExpression("9[1236][0-9]{7}|2[1-9]{2}[0-9]{6}")]
-        [Display(Name = "Numero de telemóvel")]
-        public string NumeroTelemovel { get; set; }
+        [RegularExpression("(9[1236][0-9]{7})|(2[1-9][0-9]{7})")]
+        public string Contacto { get; set; }
         [Required]
         [EmailAddress]
         public string Email { get; set; }
+        [Required]
+        public string NumeroFuncionario { get; set; }
     }
 }
