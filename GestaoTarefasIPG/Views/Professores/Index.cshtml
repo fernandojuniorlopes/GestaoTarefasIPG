@@ -13,8 +13,9 @@
 @using (Html.BeginForm())
 {
     <p>
-        Nome: @Html.TextBox("SearchString")
-        <input type="submit" value="Procurar" />
+        Nome: <input type="text" name="searchString" value="@Model.StringProcura" placeholder="Procurar por nome" />
+        <a type="submit" class="btn btn-outline-primary" asp-route-page="1" >Procurar</a>
+        <a asp-action="Index" class="btn btn-info">Lista inteira</a>
     </p>
 }
 
@@ -71,7 +72,7 @@
         }
         else
         {
-            <a asp-action="Index" asp-route-page="@i" class="btn btn-outline-info">@i</a>
+            <a asp-action="Index" asp-route-page="@i" asp-route-searchString="@Model.StringProcura" class="btn btn-outline-info">@i</a>
         }
     }
 }

@@ -31,14 +31,15 @@ namespace GestaoTarefasIPG.Controllers
         public IActionResult Index(int page = 1, string searchString = null)
         {
             var professores = from p in _context.Professor
-                           select p;
+                              select p;
 
             if (!String.IsNullOrEmpty(searchString))
             {
                 professores = professores.Where(p => p.Nome.Contains(searchString));
             }
 
-            decimal nProfessores = _context.Professor.Count();
+            decimal nProfessores = professores.Count();
+
             int NUMERO_PAGINAS_ANTES_DEPOIS = ((int)nProfessores / TamanhoPagina);
 
             if (nProfessores % TamanhoPagina == 0)
@@ -55,6 +56,7 @@ namespace GestaoTarefasIPG.Controllers
             };
 
             vm.UltimaPagina = Math.Min(vm.TotalPaginas, page + NUMERO_PAGINAS_ANTES_DEPOIS);
+            vm.StringProcura = searchString;
 
             return View(vm);
         }
