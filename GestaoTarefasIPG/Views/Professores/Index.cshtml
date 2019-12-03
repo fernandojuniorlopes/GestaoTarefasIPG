@@ -9,6 +9,15 @@
 <p>
     <a asp-action="Create">Adicionar um novo professor</a>
 </p>
+
+@using (Html.BeginForm())
+{
+    <p>
+        Nome: @Html.TextBox("SearchString")
+        <input type="submit" value="Procurar" />
+    </p>
+}
+
 <table class="table">
     <thead>
         <tr>
@@ -53,14 +62,16 @@
     </tbody>
 </table>
 
-@for (int i = 1; i <= Model.TotalPaginas; i++)
-{
-    @if (i == Model.PaginaAtual)
+@if (Model.TotalPaginas > 1) {
+    for (int i = 1; i <= Model.TotalPaginas; i++)
     {
-        <a href="#" class="btn btn-outline-primary">@i</a>
-    }
-    else
-    {
-        <a asp-action="Index" asp-route-page="@i" class="btn btn-outline-info">@i</a>
+        @if (i == Model.PaginaAtual)
+        {
+            <a href="#" class="btn btn-outline-primary">@i</a>
+        }
+        else
+        {
+            <a asp-action="Index" asp-route-page="@i" class="btn btn-outline-info">@i</a>
+        }
     }
 }

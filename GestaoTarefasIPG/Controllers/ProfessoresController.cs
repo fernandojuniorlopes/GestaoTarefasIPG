@@ -28,8 +28,16 @@ namespace GestaoTarefasIPG.Controllers
         //    );
 
         // GET: Professores
-        public IActionResult Index(int page = 1)
+        public IActionResult Index(int page = 1, string searchString = null)
         {
+            var professores = from p in _context.Professor
+                           select p;
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                professores = professores.Where(p => p.Nome.Contains(searchString));
+            }
+
             decimal nProfessores = _context.Professor.Count();
             int NUMERO_PAGINAS_ANTES_DEPOIS = ((int)nProfessores / TamanhoPagina);
 
@@ -40,7 +48,7 @@ namespace GestaoTarefasIPG.Controllers
 
             ProfessoresViewModel vm = new ProfessoresViewModel
             {
-                Professores = _context.Professor.OrderBy(p => p.Nome).Skip((page - 1) * TamanhoPagina).Take(TamanhoPagina),
+                Professores = professores.OrderBy(p => p.Nome).Skip((page - 1) * TamanhoPagina).Take(TamanhoPagina),
                 PaginaAtual = page,
                 PrimeiraPagina = Math.Max(1, page - NUMERO_PAGINAS_ANTES_DEPOIS),
                 TotalPaginas = (int)Math.Ceiling(nProfessores / TamanhoPagina)
