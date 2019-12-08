@@ -28,7 +28,7 @@ namespace GestaoTarefasIPG.Controllers
         //    );
 
         // GET: Professores
-        public IActionResult Index(int page = 1, string searchString = null)
+        public IActionResult Index(int page = 1, string searchString = null, string sort = "true")
         {
             var professores = from p in _context.Professor
                               select p;
@@ -49,11 +49,20 @@ namespace GestaoTarefasIPG.Controllers
 
             ProfessoresViewModel vm = new ProfessoresViewModel
             {
-                Professores = professores.OrderBy(p => p.Nome).Skip((page - 1) * TamanhoPagina).Take(TamanhoPagina),
+                Sort = sort,
                 PaginaAtual = page,
                 PrimeiraPagina = Math.Max(1, page - NUMERO_PAGINAS_ANTES_DEPOIS),
                 TotalPaginas = (int)Math.Ceiling(nProfessores / TamanhoPagina)
             };
+
+            if (sort.Equals("true"))
+            {
+                vm.Professores = professores.OrderBy(p => p.Nome).Skip((page - 1) * TamanhoPagina).Take(TamanhoPagina);
+            }
+            else
+            {
+                vm.Professores = professores.OrderByDescending(p => p.Nome).Skip((page - 1) * TamanhoPagina).Take(TamanhoPagina);
+            }
 
             vm.UltimaPagina = Math.Min(vm.TotalPaginas, page + NUMERO_PAGINAS_ANTES_DEPOIS);
             vm.StringProcura = searchString;

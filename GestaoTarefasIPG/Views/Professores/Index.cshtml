@@ -14,16 +14,42 @@
 {
     <p>
         Nome: <input type="text" name="searchString" value="@Model.StringProcura" placeholder="Procurar por nome" />
-        <button type="submit" class="btn btn-light" asp-action="Index" asp-route-page="1" asp-route-searchString="@Model.StringProcura" >Procurar</button>
+        <button type="submit" class="btn btn-light" asp-action="Index" asp-route-page="1" asp-route-searchString="@Model.StringProcura">Procurar</button>
         <a asp-action="Index" class="btn btn-info">Lista inteira</a>
     </p>
 }
+
+<script>
+
+    function sort() {
+        let sort = @Model.Sort;
+
+        var result = "true".localeCompare(sort);
+
+        console.log('antes - ' + sort);
+
+        if (result == 0) {
+            sort = "false";
+        } else {
+            sort = "true";
+        }
+
+        console.log('depois - ' + sort);
+
+        const url = 'https://' + window.location.host + '/Professores?page=1&sort=' + sort;
+
+        console.log('url - ' + url)
+
+        window.location.replace(url);
+    }
+
+</script>
 
 <table class="table table-striped">
     <thead>
         <tr>
             <th>
-                Nome:
+                <a onclick="sort()" >Nome:</a>
             </th>
             <th>
                 Numero de telemóvel:
@@ -63,7 +89,8 @@
     </tbody>
 </table>
 
-@if (Model.TotalPaginas > 1) {
+@if (Model.TotalPaginas > 1)
+{
     for (int i = 1; i <= Model.TotalPaginas; i++)
     {
         @if (i == Model.PaginaAtual)
@@ -72,7 +99,7 @@
         }
         else
         {
-            <a asp-action="Index" asp-route-page="@i" asp-route-searchString="@Model.StringProcura" class="btn btn-outline-info">@i</a>
+            <a asp-action="Index" asp-route-page="@i" asp-route-searchString="@Model.StringProcura" asp-route-sort="@Model.Sort" class="btn btn-outline-info">@i</a>
         }
     }
 }
