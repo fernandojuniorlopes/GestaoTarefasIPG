@@ -28,7 +28,7 @@ namespace GestaoTarefasIPG.Controllers
         //    );
 
         // GET: Professores
-        public IActionResult Index(int page = 1, string searchString = null, string sort = "true")
+        public IActionResult Index(int page = 1, string searchString = "", string sort = "true")
         {
             var professores = from p in _context.Professor
                               select p;

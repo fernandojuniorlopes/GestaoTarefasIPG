@@ -23,6 +23,7 @@
 
     function sort() {
         let sort = @Model.Sort;
+        let stringProcura = '@Model.StringProcura';
 
         var result = "true".localeCompare(sort);
 
@@ -36,7 +37,7 @@
 
         console.log('depois - ' + sort);
 
-        const url = 'https://' + window.location.host + '/Professores?page=1&sort=' + sort;
+        const url = 'https://' + window.location.host + '/Professores?page=1&sort=' + sort + '&searchString=' + stringProcura;
 
         console.log('url - ' + url)
 
@@ -49,16 +50,16 @@
     <thead>
         <tr>
             <th>
-                <a onclick="sort()" >Nome:</a>
+                <a onclick="sort()">Nome</a>
             </th>
             <th>
-                Numero de telemóvel:
+                Contacto
             </th>
             <th>
-                Email:
+                Email
             </th>
             <th>
-                Gabinete:
+                Gabinete
             </th>
             <th></th>
         </tr>
