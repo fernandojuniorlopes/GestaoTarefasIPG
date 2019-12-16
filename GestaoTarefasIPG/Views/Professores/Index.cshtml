@@ -6,10 +6,12 @@
 
 <h1>Lista de professores</h1>
 
+@*link para criar um novo funcionário*@
 <p>
     <a asp-action="Create">Adicionar um novo professor</a>
 </p>
 
+@*form para fazer um procura*@
 @using (Html.BeginForm())
 {
     <p>
@@ -19,34 +21,35 @@
     </p>
 }
 
+@*Script de JavaScript*@
 <script>
 
+    //função para fazer o sort
     function sort() {
-        let sort = @Model.Sort;
-        let stringProcura = '@Model.StringProcura';
+        let sort = '@Model.Sort'; //um string true ou false
+        let stringProcura = '@Model.StringProcura'; //o string de procura
 
-        var result = "true".localeCompare(sort);
+        var result = "true".localeCompare(sort); //comparar a variavel sort com o string true se for igual da 0
 
-        console.log('antes - ' + sort);
-
+        //"inverter" o valor do string sort
         if (result == 0) {
             sort = "false";
         } else {
             sort = "true";
         }
 
-        console.log('depois - ' + sort);
-
+        //guardar a nova rota com o sort e o string de procura
         const url = 'https://' + window.location.host + '/Professores?page=1&sort=' + sort + '&searchString=' + stringProcura;
 
-        console.log('url - ' + url)
-
+        //ir para o url
         window.location.replace(url);
     }
 
 </script>
 
+@*construção da tabela*@
 <table class="table table-striped">
+    @*Cabeçalho da tabela*@
     <thead>
         <tr>
             <th>
@@ -61,31 +64,37 @@
             <th>
                 Gabinete
             </th>
+            <th>
+                Numero de funcionário
+            </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
         @foreach (var p in Model.Professores)
         {
-            <tr>
-                <td>
-                    @p.Nome
-                </td>
-                <td>
-                    @p.NumeroTelemovel
-                </td>
-                <td>
-                    @p.Email
-                </td>
-                <td>
-                    @p.Gabinete
-                </td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@p.ProfessorId">Editar</a> |
-                    <a asp-action="Details" asp-route-id="@p.ProfessorId">Detalhes</a> |
-                    <a asp-action="Delete" asp-route-id="@p.ProfessorId">Remover</a>
-                </td>
-            </tr>
+        <tr>
+            <td>
+                @p.Nome
+            </td>
+            <td>
+                @p.NumeroTelemovel
+            </td>
+            <td>
+                @p.Email
+            </td>
+            <td>
+                @p.Gabinete
+            </td>
+            <td>
+                @p.NumFuncionario
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@p.ProfessorId">Editar</a> |
+                <a asp-action="Details" asp-route-id="@p.ProfessorId">Detalhes</a> |
+                <a asp-action="Delete" asp-route-id="@p.ProfessorId">Remover</a>
+            </td>
+        </tr>
         }
     </tbody>
 </table>

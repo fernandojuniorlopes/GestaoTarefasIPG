@@ -15,26 +15,26 @@ namespace GestaoTarefasIPG.Models
             }
 
             db.Professor.AddRange(
-                new Professor { Nome = "Nil Silva", NumeroTelemovel = "961123456", Email = "nil@silva.com", Gabinete = "1" },
-                new Professor { Nome = "Fernando Lopes", NumeroTelemovel = "936654321", Email = "nado@lopes.pt", Gabinete = "2" },
-                new Professor { Nome = "Nikita", NumeroTelemovel = "232546123", Email = "niki@ta.com", Gabinete = "3" },
-                new Professor { Nome = "Jacinta", NumeroTelemovel = "912123456", Email = "jacinta@gmail.com", Gabinete = "4" },
-                new Professor { Nome = "Teste 1", NumeroTelemovel = "927895612", Email = "teste@1.com", Gabinete = "5" },
-                new Professor { Nome = "Teste 2", NumeroTelemovel = "921234568", Email = "teste@2.com", Gabinete = "6" },
-                new Professor { Nome = "Teste 3", NumeroTelemovel = "965874956", Email = "teste@3.com", Gabinete = "7" },
-                new Professor { Nome = "Teste 4", NumeroTelemovel = "935845612", Email = "teste@4.com", Gabinete = "8" },
-                new Professor { Nome = "Teste 5", NumeroTelemovel = "232548912", Email = "teste@5.com", Gabinete = "9" },
-                new Professor { Nome = "Teste 6", NumeroTelemovel = "232548796", Email = "teste@6.com", Gabinete = "10" },
-                new Professor { Nome = "Teste 7", NumeroTelemovel = "232158463", Email = "teste@7.com", Gabinete = "11" },
-                new Professor { Nome = "Teste 8", NumeroTelemovel = "961845265", Email = "teste@8.com", Gabinete = "12" },
-                new Professor { Nome = "Teste 9", NumeroTelemovel = "964587135", Email = "teste@9.com", Gabinete = "13" },
-                new Professor { Nome = "Teste 10", NumeroTelemovel = "965571234", Email = "teste@10.com", Gabinete = "14" },
-                new Professor { Nome = "Teste 11", NumeroTelemovel = "232111111", Email = "teste@11.com", Gabinete = "15" },
-                new Professor { Nome = "Teste 12", NumeroTelemovel = "232222222", Email = "teste@12.com", Gabinete = "16" },
-                new Professor { Nome = "Teste 13", NumeroTelemovel = "232333333", Email = "teste@13.com", Gabinete = "17" },
-                new Professor { Nome = "Teste 14", NumeroTelemovel = "232444444", Email = "teste@14.com", Gabinete = "18" },
-                new Professor { Nome = "Teste 15", NumeroTelemovel = "232555555", Email = "teste@15.com", Gabinete = "19" },
-                new Professor { Nome = "Teste 16", NumeroTelemovel = "232666666", Email = "teste@16.com", Gabinete = "20" }
+                new Professor { Nome = "Nil Silva", NumeroTelemovel = "961123456", Email = "nil@silva.com", Gabinete = "1", NumFuncionario = "1" },
+                new Professor { Nome = "Fernando Lopes", NumeroTelemovel = "936654321", Email = "nado@lopes.pt", Gabinete = "2", NumFuncionario = "2" },
+                new Professor { Nome = "Nikita", NumeroTelemovel = "232546123", Email = "niki@ta.com", Gabinete = "3", NumFuncionario = "3" },
+                new Professor { Nome = "Jacinta", NumeroTelemovel = "912123456", Email = "jacinta@gmail.com", Gabinete = "4", NumFuncionario = "4" },
+                new Professor { Nome = "Teste 1", NumeroTelemovel = "927895612", Email = "teste@1.com", Gabinete = "5", NumFuncionario = "5" },
+                new Professor { Nome = "Teste 2", NumeroTelemovel = "921234568", Email = "teste@2.com", Gabinete = "6", NumFuncionario = "6" },
+                new Professor { Nome = "Teste 3", NumeroTelemovel = "965874956", Email = "teste@3.com", Gabinete = "7", NumFuncionario = "7" },
+                new Professor { Nome = "Teste 4", NumeroTelemovel = "935845612", Email = "teste@4.com", Gabinete = "8", NumFuncionario = "8" },
+                new Professor { Nome = "Teste 5", NumeroTelemovel = "232548912", Email = "teste@5.com", Gabinete = "9", NumFuncionario = "9" },
+                new Professor { Nome = "Teste 6", NumeroTelemovel = "232548796", Email = "teste@6.com", Gabinete = "10", NumFuncionario = "10" },
+                new Professor { Nome = "Teste 7", NumeroTelemovel = "232158463", Email = "teste@7.com", Gabinete = "11", NumFuncionario = "11" },
+                new Professor { Nome = "Teste 8", NumeroTelemovel = "961845265", Email = "teste@8.com", Gabinete = "12", NumFuncionario = "12" },
+                new Professor { Nome = "Teste 9", NumeroTelemovel = "964587135", Email = "teste@9.com", Gabinete = "13", NumFuncionario = "13" },
+                new Professor { Nome = "Teste 10", NumeroTelemovel = "965571234", Email = "teste@10.com", Gabinete = "14", NumFuncionario = "14" },
+                new Professor { Nome = "Teste 11", NumeroTelemovel = "232111111", Email = "teste@11.com", Gabinete = "15", NumFuncionario = "15" },
+                new Professor { Nome = "Teste 12", NumeroTelemovel = "232222222", Email = "teste@12.com", Gabinete = "16", NumFuncionario = "16" },
+                new Professor { Nome = "Teste 13", NumeroTelemovel = "232333333", Email = "teste@13.com", Gabinete = "17", NumFuncionario = "17" },
+                new Professor { Nome = "Teste 14", NumeroTelemovel = "232444444", Email = "teste@14.com", Gabinete = "18", NumFuncionario = "18" },
+                new Professor { Nome = "Teste 15", NumeroTelemovel = "232555555", Email = "teste@15.com", Gabinete = "19", NumFuncionario = "19" },
+                new Professor { Nome = "Teste 16", NumeroTelemovel = "232666666", Email = "teste@16.com", Gabinete = "20", NumFuncionario = "20" }
             );
             db.SaveChanges();
         }

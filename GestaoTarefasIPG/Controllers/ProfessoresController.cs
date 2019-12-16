@@ -20,13 +20,6 @@ namespace GestaoTarefasIPG.Controllers
             _context = context;
         }
 
-        ////public ViewResult Index(int page = 1) => View(
-        //    _context.Professor
-        //    .OrderBy(p => p.Nome)
-        //    .Skip((page - 1) * TamanhoPagina)
-        //    .Take(TamanhoPagina)
-        //    );
-
         // GET: Professores
         public IActionResult Index(int page = 1, string searchString = "", string sort = "true")
         {
@@ -99,7 +92,7 @@ namespace GestaoTarefasIPG.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ProfessorId,Nome,NumeroTelemovel,Email,Gabinete")] Professor professor)
+        public async Task<IActionResult> Create([Bind("ProfessorId,Nome,NumeroTelemovel,Email,Gabinete,NumFuncionario")] Professor professor)
         {
             if (ModelState.IsValid)
             {
@@ -131,7 +124,7 @@ namespace GestaoTarefasIPG.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ProfessorId,Nome,NumeroTelemovel,Email,Gabinete")] Professor professor)
+        public async Task<IActionResult> Edit(int id, [Bind("ProfessorId,Nome,NumeroTelemovel,Email,Gabinete,NumFuncionario")] Professor professor)
         {
             if (id != professor.ProfessorId)
             {
