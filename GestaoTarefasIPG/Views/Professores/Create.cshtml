@@ -33,6 +33,11 @@
                 <span asp-validation-for="Gabinete" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <label asp-for="NumFuncionario" class="control-label">Numero de funcionário:</label>
+                <input asp-for="NumFuncionario" class="form-control" />
+                <span asp-validation-for="NumFuncionario" class="text-danger"></span>
+            </div>
+            <div class="form-group">
                 <input type="submit" value="Criar" class="btn btn-primary" />
                 <a asp-action="Index" class="btn btn-secondary">Voltar</a>
             </div>
