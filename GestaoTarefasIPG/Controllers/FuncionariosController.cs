@@ -21,9 +21,17 @@ namespace GestaoTarefasIPG.Controllers
         }
 
         // GET: Funcionarios
-        public async Task<IActionResult> Index(int page = 1)
+        public async Task<IActionResult> Index(int page = 1, string searchString = "", string sort = "true")
         {
-            decimal nFuncionarios = _context.Funcionario.Count();
+            var funcionarios = from p in _context.Funcionario
+                              select p;
+
+            if (!String.IsNullOrEmpty(searchString)) {
+                funcionarios = funcionarios.Where(p => p.Nome.Contains(searchString));
+            }
+
+            decimal nFuncionarios = funcionarios.Count();
+
             int NUMERO_PAGINAS_ANTES_DEPOIS = ((int)nFuncionarios / TamanhoPagina);
 
             if (nFuncionarios % TamanhoPagina == 0) {
@@ -31,13 +39,20 @@ namespace GestaoTarefasIPG.Controllers
             }
 
             FuncionariosViewModel vm = new FuncionariosViewModel {
-                Funcionarios = _context.Funcionario.OrderBy(p => p.Nome).Skip((page - 1) * TamanhoPagina).Take(TamanhoPagina),
+                Sort = sort,
                 PaginaAtual = page,
                 PrimeiraPagina = Math.Max(1, page - NUMERO_PAGINAS_ANTES_DEPOIS),
                 TotalPaginas = (int)Math.Ceiling(nFuncionarios / TamanhoPagina)
             };
 
+            if (sort.Equals("true")) {
+                vm.Funcionarios = funcionarios.OrderBy(p => p.Nome).Skip((page - 1) * TamanhoPagina).Take(TamanhoPagina);
+            } else {
+                vm.Funcionarios = funcionarios.OrderByDescending(p => p.Nome).Skip((page - 1) * TamanhoPagina).Take(TamanhoPagina);
+            }
+
             vm.UltimaPagina = Math.Min(vm.TotalPaginas, page + NUMERO_PAGINAS_ANTES_DEPOIS);
+            vm.StringProcura = searchString;
 
             return View(vm);
         }
