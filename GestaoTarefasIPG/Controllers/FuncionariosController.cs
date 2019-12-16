@@ -77,8 +77,12 @@ namespace GestaoTarefasIPG.Controllers
             {
                 _context.Add(funcionario);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                //return RedirectToAction(nameof(Index));
+                ViewBag.Title = "Criação bem sucedida!";
+                ViewBag.Message = "Funcionário criado com sucesso";
+                return View("Success");
             }
+
             return View(funcionario);
         }
 
@@ -128,7 +132,10 @@ namespace GestaoTarefasIPG.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                //return RedirectToAction(nameof(Index));
+                ViewBag.Title = "Atualização bem sucedida!";
+                ViewBag.Message = "Funcionário atualizado com sucesso";
+                return View("Success");
             }
             return View(funcionario);
         }
@@ -159,7 +166,10 @@ namespace GestaoTarefasIPG.Controllers
             var funcionario = await _context.Funcionario.FindAsync(id);
             _context.Funcionario.Remove(funcionario);
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            //return RedirectToAction(nameof(Index));
+            ViewBag.Title = "Eliminação bem sucedida!";
+            ViewBag.Message = "Funcionário eliminado com sucesso";
+            return View("Success");
         }
 
         private bool FuncionarioExists(int id)
