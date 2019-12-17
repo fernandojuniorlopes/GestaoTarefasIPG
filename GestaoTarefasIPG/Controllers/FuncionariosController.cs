@@ -86,21 +86,60 @@ namespace GestaoTarefasIPG.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("FuncionarioId,Nome,Contacto,Email,NumeroFuncionario")] Funcionario funcionario)
-        {
-            if (ModelState.IsValid)
-            {
-                _context.Add(funcionario);
-                await _context.SaveChangesAsync();
-                //return RedirectToAction(nameof(Index));
-                ViewBag.Title = "Criação bem sucedida!";
-                ViewBag.Message = "Funcionário criado com sucesso";
-                return View("Success");
+        public async Task<IActionResult> Create([Bind("FuncionarioId,Nome,Contacto,Email,NumeroFuncionario")] Funcionario funcionario) {
+            if (ModelState.IsValid) {
+
+                ViewBag.Email = "";
+                ViewBag.Contacto = "";
+                ViewBag.NumeroFunc = "";
+
+                bool erro = false;
+
+                var Nome = _context.Funcionario
+                .FirstOrDefault(m => m.Nome == funcionario.Nome);
+
+                var Email = _context.Funcionario
+                .FirstOrDefault(m => m.Email == funcionario.Email);
+
+                var Contacto = _context.Funcionario
+                .FirstOrDefault(m => m.Contacto == funcionario.Contacto);
+                
+                var NumeroFunc = _context.Funcionario
+                .FirstOrDefault(m => m.NumeroFuncionario == funcionario.NumeroFuncionario);
+
+                if (Email != null) {
+                    ViewBag.Nome = "O Nome " + funcionario.Nome + " já foi usado";
+                    erro = true;
+                }
+
+                if (Email != null) {
+                    ViewBag.Email = "O Email " + funcionario.Email + " já foi usado";
+                    erro = true;
+                }
+                if (Contacto != null) {
+                    ViewBag.Contacto = "O contacto " + funcionario.Contacto + " já foi usado";
+                    erro = true;
+                }
+                if (NumeroFunc != null) {
+                    ViewBag.NumeroFunc = "O número de funcionário " + funcionario.NumeroFuncionario + " já foi usado";
+                    erro = true;
+                }
+
+                if (erro == false) {
+
+                    _context.Add(funcionario);
+                    await _context.SaveChangesAsync();
+                    ViewBag.Title = "Criação bem sucedida!";
+                    ViewBag.Message = "Funcionário criado com sucesso";
+                    return View("Success");
+
+                } else {
+                    return View("Create");
+
+                }
             }
-
-            return View(funcionario);
+                return View(funcionario);
         }
-
         // GET: Funcionarios/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
