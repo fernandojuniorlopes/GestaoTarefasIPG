@@ -14,5 +14,7 @@ namespace GestaoTarefasIPG.Models {
         public int PrimeiraPagina { get; set; }
 
         public int UltimaPagina { get; set; }
+        public string StringProcura { get; set; }
+        public string Sort { get; set; }
     }
 }
