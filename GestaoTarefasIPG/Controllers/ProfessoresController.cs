@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using GestaoTarefasIPG.Models;
+using System.Net.Mail;
+using System.Net;
 
 namespace GestaoTarefasIPG.Controllers
 {
@@ -84,6 +86,10 @@ namespace GestaoTarefasIPG.Controllers
         // GET: Professores/Create
         public IActionResult Create()
         {
+            ViewBag.ErrorEmail = "";
+            ViewBag.ErrorNum = "";
+            ViewBag.ErrorFunc = "";
+
             return View();
         }
 
@@ -96,9 +102,74 @@ namespace GestaoTarefasIPG.Controllers
         {
             if (ModelState.IsValid)
             {
+                var professores = _context.Professor.FirstOrDefault(p => p.Email == professor.Email);
+
+                bool error = false;
+
+                if (professores != null)
+                {
+                    error = true;
+                    ViewBag.ErrorEmail = "email";
+                }
+
+                professores = _context.Professor.FirstOrDefault(p => p.NumeroTelemovel == professor.NumeroTelemovel);
+
+                if (professores != null)
+                {
+                    error = true;
+                    ViewBag.ErrorNum = "num";
+                }
+
+                professores = _context.Professor.FirstOrDefault(p => p.NumFuncionario == professor.NumFuncionario);
+
+                if (professores != null)
+                {
+                    error = true;
+                    ViewBag.ErrorFunc = "func";
+                }
+
+                if (error)
+                {
+                    return View();
+                }
+
                 _context.Add(professor);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+
+                try
+                {
+                    var subject = "Conta IPG";
+                    var body = "A sua conta IPG foi criada";
+
+                    var senderEmail = new MailAddress("email", "IPG");
+                    var password = "palavra-chave";
+
+                    var receiverEmail = new MailAddress(professor.Email, professor.Nome);
+                    var smtp = new SmtpClient
+                    {
+                        Host = "smtp.gmail.com",
+                        Port = 587,
+                        EnableSsl = true,
+                        DeliveryMethod = SmtpDeliveryMethod.Network,
+                        UseDefaultCredentials = false,
+                        Credentials = new NetworkCredential(senderEmail.Address, password)
+                    };
+                    using (var mess = new MailMessage(senderEmail, receiverEmail)
+                    {
+                        Subject = subject,
+                        Body = body
+                    })
+                    {
+                        smtp.Send(mess);
+                    }
+
+                    return View("sucesso");
+                }
+                catch (Exception)
+                {
+                    ViewBag.Error = "Some Error";
+                }
+
             }
             return View(professor);
         }

@@ -21,11 +21,19 @@
                 <label asp-for="NumeroTelemovel" class="control-label">Numero de Telemóvel:</label>
                 <input asp-for="NumeroTelemovel" class="form-control" />
                 <span asp-validation-for="NumeroTelemovel" class="text-danger"></span>
+                @if (@ViewData["ErrorNum"].Equals("num"))
+                {
+                    <span class="text-danger">Este contacto já existe</span>
+                }
             </div>
             <div class="form-group">
                 <label asp-for="Email" class="control-label">Email:</label>
                 <input asp-for="Email" class="form-control" />
                 <span asp-validation-for="Email" class="text-danger"></span>
+                @if (@ViewData["ErrorEmail"].Equals("email"))
+                {
+                    <span class="text-danger">Este email já existe</span>
+                }
             </div>
             <div class="form-group">
                 <label asp-for="Gabinete" class="control-label">Gabinete:</label>
@@ -36,6 +44,10 @@
                 <label asp-for="NumFuncionario" class="control-label">Numero de funcionário:</label>
                 <input asp-for="NumFuncionario" class="form-control" />
                 <span asp-validation-for="NumFuncionario" class="text-danger"></span>
+                @if (@ViewData["ErrorFunc"].Equals("func"))
+                {
+                    <span class="text-danger">Este numero de funcionario já existe</span>
+                }
             </div>
             <div class="form-group">
                 <input type="submit" value="Criar" class="btn btn-primary" />
