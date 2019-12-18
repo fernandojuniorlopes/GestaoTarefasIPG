@@ -5,6 +5,7 @@
 }
 
 
+
 <h1>Criar</h1>
 
 <h4>Funcionario</h4>
@@ -17,25 +18,24 @@
                 <label asp-for="Nome" class="control-label">Nome:</label>
                 <input asp-for="Nome" class="form-control" />
                 <span asp-validation-for="Nome" class="text-danger"></span>
-                <a>@ViewBag.Nome</a>
             </div>
             <div class="form-group">
                 <label asp-for="Contacto" class="control-label">Contacto:</label>
                 <input asp-for="Contacto" class="form-control" />
                 <span asp-validation-for="Contacto" class="text-danger"></span>
-                <a>@ViewBag.Contacto</a>
+                <a class="text-danger">@ViewBag.Contacto</a>
             </div>
             <div class="form-group">
                 <label asp-for="Email" class="control-label">Email:</label>
                 <input asp-for="Email" class="form-control" />
                 <span asp-validation-for="Email" class="text-danger"></span>
-                <a>@ViewBag.Email</a>
+                <a class="text-danger">@ViewBag.Email</a>
             </div>
             <div class="form-group">
                 <label asp-for="NumeroFuncionario" class="control-label">Número de funcionário:</label>
                 <input asp-for="NumeroFuncionario" class="form-control" />
                 <span asp-validation-for="NumeroFuncionario" class="text-danger"></span>
-                <a>@ViewBag.NumeroFunc</a>
+                <a class="text-danger">@ViewBag.NumeroFunc</a>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />

@@ -95,9 +95,6 @@ namespace GestaoTarefasIPG.Controllers
 
                 bool erro = false;
 
-                var Nome = _context.Funcionario
-                .FirstOrDefault(m => m.Nome == funcionario.Nome);
-
                 var Email = _context.Funcionario
                 .FirstOrDefault(m => m.Email == funcionario.Email);
 
@@ -106,11 +103,6 @@ namespace GestaoTarefasIPG.Controllers
                 
                 var NumeroFunc = _context.Funcionario
                 .FirstOrDefault(m => m.NumeroFuncionario == funcionario.NumeroFuncionario);
-
-                if (Email != null) {
-                    ViewBag.Nome = "O Nome " + funcionario.Nome + " já foi usado";
-                    erro = true;
-                }
 
                 if (Email != null) {
                     ViewBag.Email = "O Email " + funcionario.Email + " já foi usado";
