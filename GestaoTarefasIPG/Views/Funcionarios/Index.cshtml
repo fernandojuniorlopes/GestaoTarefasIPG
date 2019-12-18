@@ -6,18 +6,18 @@
 
 <h1 class="title">Lista de funcionários</h1>
 
-<p>
-    <a asp-action="Create">Adicionar novo funcionário</a>
-</p>
-
 @using (Html.BeginForm())
 {
     <p>
         Nome: <input type="text" name="searchString" value="@Model.StringProcura" placeholder="Procurar por nome" />
-        <button type="submit" class="btn btn-light" asp-action="Index" asp-route-page="1" asp-route-searchString="@Model.StringProcura">Procurar</button>
-        <a asp-action="Index" class="btn btn-info">Lista inteira</a>
+        <button type="submit" class="btn btn-outline-info" asp-action="Index" asp-route-page="1" asp-route-searchString="@Model.StringProcura">Procurar</button>
+        <a asp-action="Index" class="btn btn-outline-secondary">Lista inteira</a>
     </p>
 }
+
+<p>
+    <a asp-action="Create" class="btn btn-primary">Novo funcionário</a>
+</p>
 
 <script>
 
@@ -56,9 +56,6 @@
                 Contacto
             </th>
             <th>
-                Email
-            </th>
-            <th>
                 Número de funcionário
             </th>
             <th>
@@ -76,15 +73,12 @@
                 @Html.DisplayFor(modelItem => item.Contacto)
             </td>
             <td>
-                <p>@Html.DisplayFor(modelItem => item.Email)</p>
-            </td>
-            <td>
                 <p>@Html.DisplayFor(modelItem => item.NumeroFuncionario)</p>
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.FuncionarioId" class="btn btn-warning">Editar</a>
-                <a asp-action="Details" asp-route-id="@item.FuncionarioId" class="btn btn-info">Detalhes</a>
-                <a asp-action="Delete" asp-route-id="@item.FuncionarioId" class="btn btn-danger">Remover</a>
+                <a asp-action="Edit" asp-route-id="@item.FuncionarioId">Editar</a>|
+                <a asp-action="Details" asp-route-id="@item.FuncionarioId">Detalhes</a>|
+                <a asp-action="Delete" asp-route-id="@item.FuncionarioId">Remover</a>
             </td>
         </tr>
         }
