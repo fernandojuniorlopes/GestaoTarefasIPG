@@ -135,6 +135,7 @@ namespace GestaoTarefasIPG.Controllers
 
                 _context.Add(professor);
                 await _context.SaveChangesAsync();
+                ViewBag.Message = "Professor criado com sucesso!!";
 
                 try
                 {

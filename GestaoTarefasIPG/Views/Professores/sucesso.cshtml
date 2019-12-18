@@ -1,15 +1,12 @@
-﻿@{
-    ViewData["Title"] = "sucesso";
-}
-
-<h1>sucesso</h1>
-
-<script>
-
-    function back() {
-        window.history.back();
+﻿<h1><a>Successo!</a></h1>
+<style>
+    div {
+        text-align: center;
     }
-
-</script>
-
-<a onclick="back()">Voltar à lista</a>
+</style>
+<div class="alert alert-success" role="alert">
+    <h4 class="alert-heading">@ViewBag.Title</h4>
+    <p>@ViewBag.Message</p>
+    <hr>
+    <a asp-action="Index" class="btn btn-primary">Ver professores</a>
+</div>
