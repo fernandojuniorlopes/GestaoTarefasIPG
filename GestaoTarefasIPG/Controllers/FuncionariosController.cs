@@ -21,14 +21,18 @@ namespace GestaoTarefasIPG.Controllers
         }
 
         // GET: Funcionarios
-        public async Task<IActionResult> Index(int page = 1, string searchString = "", string sort = "true")
-        {
+        public IActionResult Index(int page = 1, string searchString = "", string sort = "true", string searchBy = "") {
             var funcionarios = from p in _context.Funcionario
                               select p;
 
             if (!String.IsNullOrEmpty(searchString)) {
-                funcionarios = funcionarios.Where(p => p.Nome.Contains(searchString));
+                if (searchBy == "Name") {
+                    funcionarios = funcionarios.Where(p => p.Nome.Contains(searchString));
+                } else {
+                    funcionarios = funcionarios.Where(p => p.NumeroFuncionario.Contains(searchString));
+                }
             }
+             
 
             decimal nFuncionarios = funcionarios.Count();
 
@@ -42,7 +46,9 @@ namespace GestaoTarefasIPG.Controllers
                 Sort = sort,
                 PaginaAtual = page,
                 PrimeiraPagina = Math.Max(1, page - NUMERO_PAGINAS_ANTES_DEPOIS),
-                TotalPaginas = (int)Math.Ceiling(nFuncionarios / TamanhoPagina)
+                TotalPaginas = (int)Math.Ceiling(nFuncionarios / TamanhoPagina),
+                SearchBy = searchBy
+
             };
 
             if (sort.Equals("true")) {
