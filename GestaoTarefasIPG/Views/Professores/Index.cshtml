@@ -6,20 +6,39 @@
 
 <h1>Lista de professores</h1>
 
-@*link para criar um novo funcionário*@
-<p>
-    <a asp-action="Create">Adicionar um novo professor</a>
-</p>
-
 @*form para fazer um procura*@
 @using (Html.BeginForm())
 {
     <p>
-        Nome: <input type="text" name="searchString" value="@Model.StringProcura" placeholder="Procurar por nome" />
-        <button type="submit" class="btn btn-light" asp-action="Index" asp-route-page="1" asp-route-searchString="@Model.StringProcura">Procurar</button>
-        <a asp-action="Index" class="btn btn-info">Lista inteira</a>
+        <div class="dropdown">
+            <button class="dropbtn">@Model.ProcuraPor</button>
+            <div class="dropdown-content">
+                @if (Model.ProcuraPor.Equals("Nome"))
+                {
+                    <a asp-action="Index" asp-route-ProcuraPor="Gabinete">gabinete</a>
+                    <a asp-action="Index" asp-route-ProcuraPor="Numero">Numero</a>
+                }
+                else if (Model.ProcuraPor.Equals("Gabinete"))
+                {
+                    <a asp-action="Index" asp-route-ProcuraPor="Nome">Nome</a>
+                    <a asp-action="Index" asp-route-ProcuraPor="Numero">Numero</a>
+                }
+                else if (Model.ProcuraPor.Equals("Numero"))
+                {
+                    <a asp-action="Index" asp-route-ProcuraPor="Nome">Nome</a>
+                    <a asp-action="Index" asp-route-ProcuraPor="Gabinete">gabinete</a>
+                }
+            </div>
+        </div> <input type="text" name="searchString" value="@Model.StringProcura" placeholder="Procurar por @Model.ProcuraPor" />
+        <button type="submit" class="btn btn-outline-info" asp-action="Index" asp-route-page="1" asp-route-searchString="@Model.StringProcura" asp-route-ProcuraPor="@Model.ProcuraPor">Procurar</button>
+        <a asp-action="Index" class="btn btn-outline-secondary">Lista inteira</a>
     </p>
 }
+
+@*link para criar um novo funcionário*@
+<p>
+    <a asp-action="Create" class="btn btn-primary">Novo professor</a>
+</p>
 
 @*Script de JavaScript*@
 <script>
@@ -47,19 +66,66 @@
 
 </script>
 
+<style>
+
+    .dropbtn {
+        background-color: #db1033;
+        color: white;
+        padding: 8px;
+        font-size: 12px;
+        border: none;
+    }
+
+    .dropdown {
+        position: relative;
+        display: inline-block;
+    }
+
+    .dropdown-content {
+        display: none;
+        position: absolute;
+        background-color: #f1f1f1;
+        min-width: 160px;
+        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+        z-index: 1;
+    }
+
+        .dropdown-content a {
+            color: black;
+            padding: 6px 8px;
+            text-decoration: none;
+            display: block;
+        }
+
+            .dropdown-content a:hover {
+                background-color: #ddd;
+            }
+
+    .dropdown:hover .dropdown-content {
+        display: block;
+    }
+
+    .dropdown:hover .dropbtn {
+        background-color: gray;
+    }
+
+    .orderLink {
+        color: white;
+    }
+
+        .orderLink:hover {
+            text-decoration: underline;
+            color: white;
+        }
+</style>
+
 @*construção da tabela*@
 <table class="table table-striped">
     @*Cabeçalho da tabela*@
     <thead>
         <tr>
-            <th>
-                <a onclick="sort()">Nome</a>
-            </th>
-            <th>
-                Contacto
-            </th>
-            <th>
-                Email
+            <th onclick="sort()" class="orderLink">
+                <a>Nome</a>
             </th>
             <th>
                 Gabinete
@@ -67,34 +133,30 @@
             <th>
                 Numero de funcionário
             </th>
-            <th></th>
+            <th>
+                Ações
+            </th>
         </tr>
     </thead>
     <tbody>
         @foreach (var p in Model.Professores)
         {
-        <tr>
-            <td>
-                @p.Nome
-            </td>
-            <td>
-                @p.NumeroTelemovel
-            </td>
-            <td>
-                @p.Email
-            </td>
-            <td>
-                @p.Gabinete
-            </td>
-            <td>
-                @p.NumFuncionario
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@p.ProfessorId">Editar</a> |
-                <a asp-action="Details" asp-route-id="@p.ProfessorId">Detalhes</a> |
-                <a asp-action="Delete" asp-route-id="@p.ProfessorId">Remover</a>
-            </td>
-        </tr>
+            <tr>
+                <td>
+                    @p.Nome
+                </td>
+                <td>
+                    @p.Gabinete
+                </td>
+                <td>
+                    @p.NumFuncionario
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@p.ProfessorId">Editar</a> |
+                    <a asp-action="Details" asp-route-id="@p.ProfessorId">Detalhes</a> |
+                    <a asp-action="Delete" asp-route-id="@p.ProfessorId">Remover</a>
+                </td>
+            </tr>
         }
     </tbody>
 </table>
@@ -109,7 +171,7 @@
         }
         else
         {
-            <a asp-action="Index" asp-route-page="@i" asp-route-searchString="@Model.StringProcura" asp-route-sort="@Model.Sort" class="btn btn-outline-info">@i</a>
+            <a asp-action="Index" asp-route-page="@i" asp-route-searchString="@Model.StringProcura" asp-route-sort="@Model.Sort" asp-route-ProcuraPor="@Model.ProcuraPor" class="btn btn-outline-info">@i</a>
         }
     }
 }

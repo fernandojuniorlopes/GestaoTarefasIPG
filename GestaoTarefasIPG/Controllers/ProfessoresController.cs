@@ -23,14 +23,25 @@ namespace GestaoTarefasIPG.Controllers
         }
 
         // GET: Professores
-        public IActionResult Index(int page = 1, string searchString = "", string sort = "true")
+        public IActionResult Index(int page = 1, string searchString = "", string sort = "true", string procuraPor = "Nome")
         {
             var professores = from p in _context.Professor
                               select p;
 
             if (!String.IsNullOrEmpty(searchString))
             {
-                professores = professores.Where(p => p.Nome.Contains(searchString));
+                if (procuraPor.Equals("Nome"))
+                {
+                    professores = professores.Where(p => p.Nome.Contains(searchString));
+                }
+                else if (procuraPor.Equals("Gabinete"))
+                {
+                    professores = professores.Where(p => p.Gabinete.Contains(searchString));
+                }
+                else if (procuraPor.Equals("Numero"))
+                {
+                    professores = professores.Where(p => p.NumFuncionario.Contains(searchString));
+                }
             }
 
             decimal nProfessores = professores.Count();
@@ -47,7 +58,8 @@ namespace GestaoTarefasIPG.Controllers
                 Sort = sort,
                 PaginaAtual = page,
                 PrimeiraPagina = Math.Max(1, page - NUMERO_PAGINAS_ANTES_DEPOIS),
-                TotalPaginas = (int)Math.Ceiling(nProfessores / TamanhoPagina)
+                TotalPaginas = (int)Math.Ceiling(nProfessores / TamanhoPagina),
+                ProcuraPor = procuraPor
             };
 
             if (sort.Equals("true"))
@@ -111,6 +123,10 @@ namespace GestaoTarefasIPG.Controllers
                     error = true;
                     ViewBag.ErrorEmail = "email";
                 }
+                else
+                {
+                    ViewBag.ErrorEmail = "";
+                }
 
                 professores = _context.Professor.FirstOrDefault(p => p.NumeroTelemovel == professor.NumeroTelemovel);
 
@@ -119,12 +135,20 @@ namespace GestaoTarefasIPG.Controllers
                     error = true;
                     ViewBag.ErrorNum = "num";
                 }
+                else
+                {
+                    ViewBag.ErrorNum = "";
+                }
 
                 professores = _context.Professor.FirstOrDefault(p => p.NumFuncionario == professor.NumFuncionario);
 
                 if (professores != null)
                 {
                     error = true;
+                    ViewBag.ErrorFunc = "func";
+                }
+                else
+                {
                     ViewBag.ErrorFunc = "func";
                 }
 
@@ -142,8 +166,8 @@ namespace GestaoTarefasIPG.Controllers
                     var subject = "Conta IPG";
                     var body = "A sua conta IPG foi criada";
 
-                    var senderEmail = new MailAddress("email", "IPG");
-                    var password = "palavra-chave";
+                    var senderEmail = new MailAddress("ipg.app.pi@gmail.com", "IPG");
+                    var password = "olaolaola";
 
                     var receiverEmail = new MailAddress(professor.Email, professor.Nome);
                     var smtp = new SmtpClient

@@ -19,6 +19,7 @@ namespace GestaoTarefasIPG.Models
 
         public string StringProcura { get; set; }
 
+        public string ProcuraPor { get; set; }
         public string Sort { get; set; }
     }
 }
