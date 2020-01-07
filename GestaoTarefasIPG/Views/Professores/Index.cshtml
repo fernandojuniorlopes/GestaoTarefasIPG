@@ -47,6 +47,7 @@
     function sort() {
         let sort = '@Model.Sort'; //um string true ou false
         let stringProcura = '@Model.StringProcura'; //o string de procura
+        let procurarPor = '@Model.ProcuraPor';
 
         var result = "true".localeCompare(sort); //comparar a variavel sort com o string true se for igual da 0
 
@@ -58,7 +59,7 @@
         }
 
         //guardar a nova rota com o sort e o string de procura
-        const url = 'https://' + window.location.host + '/Professores?page=1&sort=' + sort + '&searchString=' + stringProcura;
+        const url = 'https://' + window.location.host + '/Professores?page=1&sort=' + sort + '&searchString=' + stringProcura + '&procuraPor=' + procurarPor;
 
         //ir para o url
         window.location.replace(url);
