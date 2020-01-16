@@ -1,4 +1,6 @@
-﻿using System;
+﻿using GestaoTarefasIPG.Data;
+using Microsoft.AspNetCore.Identity;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -7,6 +9,12 @@ namespace GestaoTarefasIPG.Models
 {
     public class SeedData
     {
+        const string ADMIN_ROLE = "ADMIN";
+        const string BOSS_PROF_ROLE = "BossProf";
+        const string BOSS_FUNC_ROLE = "BossFunc";
+        const string PROF_ROLE = "Prof";
+        const string FUNC_ROLE = "Func";
+
         public static void Populate(ProfessorDbContext db)
         {
             if (db.Professor.Any())
@@ -38,6 +46,7 @@ namespace GestaoTarefasIPG.Models
             );
             db.SaveChanges();
         }
+
         public static void PopulateFuncionario(FuncionarioDbContext db) {
 
             if (db.Funcionario.Any()) {
@@ -67,6 +76,58 @@ namespace GestaoTarefasIPG.Models
                 new Funcionario { Nome = "Teste 16", Contacto = "232666666", Email = "teste@16.com", NumeroFuncionario = "20"}
             );
             db.SaveChanges();
+        }
+
+        public static async Task PopulateUsersAsync(UserManager<IdentityUser> userManager)
+        {
+            const string ADMIN_USERNAME = "admin@ipg.pt";
+            const string ADMIN_PASSWORD = "Secret123$";
+
+            IdentityUser user = await userManager.FindByNameAsync(ADMIN_USERNAME);
+
+            if (user == null)
+            {
+                user = new IdentityUser
+                {
+                    UserName = ADMIN_USERNAME,
+                    Email = ADMIN_USERNAME
+                };
+
+                await userManager.CreateAsync(user, ADMIN_PASSWORD);
+            }
+
+            if (!await userManager.IsInRoleAsync(user, ADMIN_ROLE))
+            {
+                await userManager.AddToRoleAsync(user, ADMIN_ROLE);
+            }
+        }
+
+        public static async Task CreateRolesAsync(RoleManager<IdentityRole> roleManager)
+        {
+            if (!await roleManager.RoleExistsAsync(ADMIN_ROLE))
+            {
+                await roleManager.CreateAsync(new IdentityRole(ADMIN_ROLE));
+            }
+
+            if (!await roleManager.RoleExistsAsync(BOSS_PROF_ROLE))
+            {
+                await roleManager.CreateAsync(new IdentityRole(BOSS_PROF_ROLE));
+            }
+
+            if (!await roleManager.RoleExistsAsync(BOSS_FUNC_ROLE))
+            {
+                await roleManager.CreateAsync(new IdentityRole(BOSS_FUNC_ROLE));
+            }
+
+            if (!await roleManager.RoleExistsAsync(PROF_ROLE))
+            {
+                await roleManager.CreateAsync(new IdentityRole(PROF_ROLE));
+            }
+
+            if (!await roleManager.RoleExistsAsync(FUNC_ROLE))
+            {
+                await roleManager.CreateAsync(new IdentityRole(FUNC_ROLE));
+            }
         }
     }
 }
