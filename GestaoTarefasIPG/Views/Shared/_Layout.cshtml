@@ -48,6 +48,9 @@
             width: 100%;
             margin: 0;
             display: table;
+            background-image: url("IPG.jpg");
+            background-repeat: no-repeat;
+            background-size: 100% 100%;
         }
 
         footer {
@@ -65,11 +68,11 @@
                 text-decoration: none;
             }
 
-        .div2{
-            float:right;
-            height:40px;
-            padding-top:8px;
-            padding-right:10px;
+        .div2 {
+            float: right;
+            height: 40px;
+            padding-top: 8px;
+            padding-right: 10px;
         }
     </style>
 
@@ -79,7 +82,7 @@
             <img src="~/logo.png" width="25" height="40" />
 
             <a class="link" asp-area="" asp-controller="Home" asp-action="Index">Gestão IPG</a>
-            <partial name="_LoginPartial"/>
+            <partial name="_LoginPartial" />
         </nav>
 
         @*Old nav*@
@@ -117,7 +120,7 @@
     </div>
 
     <footer class="border-top footer text-muted">
-        <div class="container">
+        <div class="container" style="background-color: white;">
             &copy; 2019 - GestaoTarefasIPG - <a class="footerLink" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
     </footer>
