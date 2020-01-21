@@ -5,60 +5,119 @@
 }
 
 <h1 class="title">Lista de funcionários</h1>
-
-@using (Html.BeginForm())
-{
-<p>
-    <b>Procurar por:</b>
-    @Html.RadioButton("searchBy", "Name") Nome
-    @Html.RadioButton("searchBy", "Number") Número
-</p>
-<p>
-    <div id="btnGroup">
-        <input type="text" name="searchString" value="@Model.StringProcura" placeholder="Procurar" />
-        <button type="submit" class="btn btn-outline-info" asp-action="Index" asp-route-page="1" asp-route-searchBy="searchBy" asp-route-searchString="@Model.StringProcura">Procurar</button>
+@*form para fazer um procura*@
+@using (Html.BeginForm()) {
+    <p>
+        <div class="dropdown">
+            <button class="dropbtn">@Model.ProcuraPor</button>
+            <div class="dropdown-content">
+                @if (Model.ProcuraPor.Equals("Nome")) {
+                    <a asp-action="Index" asp-route-ProcuraPor="Numero">Numero</a>
+                } else if (Model.ProcuraPor.Equals("Numero")) {
+                    <a asp-action="Index" asp-route-ProcuraPor="Nome">Nome</a>
+                }
+            </div>
+        </div> <input type="text" name="searchString" value="@Model.StringProcura" placeholder="Procurar por @Model.ProcuraPor" />
+        <button type="submit" class="btn btn-outline-info" asp-action="Index" asp-route-page="1" asp-route-searchString="@Model.StringProcura" asp-route-ProcuraPor="@Model.ProcuraPor">Procurar</button>
         <a asp-action="Index" class="btn btn-outline-secondary">Lista inteira</a>
-    </div>
-    
-</p>
+    </p>
 }
 
+@*link para criar um novo funcionário*@
 <p>
     <a asp-action="Create" class="btn btn-primary">Novo funcionário</a>
 </p>
 
+@*Script de JavaScript*@
 <script>
 
+    //função para fazer o sort
     function sort() {
-        let sort = @Model.Sort;
-        let stringProcura = '@Model.StringProcura';
+        let sort = '@Model.Sort'; //um string true ou false
+        let stringProcura = '@Model.StringProcura'; //o string de procura
+        let procurarPor = '@Model.ProcuraPor';
 
-        var result = "true".localeCompare(sort);
+        var result = "true".localeCompare(sort); //comparar a variavel sort com o string true se for igual da 0
 
+        //"inverter" o valor do string sort
         if (result == 0) {
             sort = "false";
         } else {
             sort = "true";
         }
 
-        const url = 'https://' + window.location.host + '/Funcionarios?page=1&sort=' + sort + '&searchString=' + stringProcura;
+        //guardar a nova rota com o sort e o string de procura
+        const url = 'https://' + window.location.host + '/Funcionarios?page=1&sort=' + sort + '&searchString=' + stringProcura + '&procuraPor=' + procurarPor;
 
+        //ir para o url
         window.location.replace(url);
     }
 
 </script>
 
-<table class="table table-striped" align="center">
+<style>
+
+    .dropbtn {
+        background-color: #db1033;
+        color: white;
+        padding: 8px;
+        font-size: 12px;
+        border: none;
+    }
+
+    .dropdown {
+        position: relative;
+        display: inline-block;
+    }
+
+    .dropdown-content {
+        display: none;
+        position: absolute;
+        background-color: #f1f1f1;
+        min-width: 160px;
+        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+        z-index: 1;
+    }
+
+        .dropdown-content a {
+            color: black;
+            padding: 6px 8px;
+            text-decoration: none;
+            display: block;
+        }
+
+            .dropdown-content a:hover {
+                background-color: #ddd;
+            }
+
+    .dropdown:hover .dropdown-content {
+        display: block;
+    }
+
+    .dropdown:hover .dropbtn {
+        background-color: gray;
+    }
+
+    .orderLink {
+        color: white;
+    }
+
+        .orderLink:hover {
+            text-decoration: underline;
+            color: white;
+        }
+</style>
+
+@*construção da tabela*@
+<table class="table table-striped">
+    @*Cabeçalho da tabela*@
     <thead>
         <tr>
-            <th>
-                <a onclick="sort()">Nome</a>
+            <th onclick="sort()" class="orderLink">
+                <a>Nome</a>
             </th>
             <th>
-                Contacto
-            </th>
-            <th>
-                Número de funcionário
+                Numero de funcionário
             </th>
             <th>
                 Ações
@@ -66,41 +125,30 @@
         </tr>
     </thead>
     <tbody>
-        @if (Model.Funcionarios.Count() == 0) {
-            <tr>
-                <td colspan="4">Não foram encontrados resultados para a sua procura.</td>
-            </tr>
-        } else {
-            foreach (var item in Model.Funcionarios) {
+        @foreach (var p in Model.Funcionarios) {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Nome)
+                    @p.Nome
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Contacto)
+                    @p.NumeroFuncionario
                 </td>
                 <td>
-                    <p>@Html.DisplayFor(modelItem => item.NumeroFuncionario)</p>
-                </td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@item.FuncionarioId">Editar</a>|
-                    <a asp-action="Details" asp-route-id="@item.FuncionarioId">Detalhes</a>|
-                    <a asp-action="Delete" asp-route-id="@item.FuncionarioId">Remover</a>
+                    <a asp-action="Edit" asp-route-id="@p.FuncionarioId">Editar</a> |
+                    <a asp-action="Details" asp-route-id="@p.FuncionarioId">Detalhes</a> |
+                    <a asp-action="Delete" asp-route-id="@p.FuncionarioId">Remover</a>
                 </td>
             </tr>
-            }
         }
     </tbody>
 </table>
 
-@for (int i = 1; i <= Model.TotalPaginas; i++) {
-
-    @if (i == Model.PaginaAtual) {
-
-        <a href="#" class="btn btn-outline-primary">@i</a>
-
-    } else {
-
-        <a asp-action="Index" asp-route-page="@i"  asp-route-searchString="@Model.StringProcura" asp-route-searchBy="@Model.SearchBy" asp-route-sort="@Model.Sort" class="btn btn-outline-info">@i</a>
+@if (Model.TotalPaginas > 1) {
+    for (int i = 1; i <= Model.TotalPaginas; i++) {
+        @if (i == Model.PaginaAtual) {
+            <a href="#" class="btn btn-outline-primary">@i</a>
+        } else {
+            <a asp-action="Index" asp-route-page="@i" asp-route-searchString="@Model.StringProcura" asp-route-sort="@Model.Sort" asp-route-ProcuraPor="@Model.ProcuraPor" class="btn btn-outline-info">@i</a>
+        }
     }
 }
